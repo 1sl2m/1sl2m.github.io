@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mrhba</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8a2be2;
+            --text-color: #f0f0f0;
+            --background-dark: #121212;
+            --background-card: #1e1e1e;
+            --hover-color: #9d4edd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            background: var(--background-card);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .theme-switch i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        header {
+            padding: 6rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--primary-color);
+            opacity: 0.3;
+        }
+
+        .profile {
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-pic i {
+            font-size: 5rem;
+            color: var(--text-color);
+        }
+
+        .name {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--primary-color), #ff69b4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .card {
+            background: var(--background-card);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(138, 43, 226, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .skill i {
+            color: var(--primary-color);
+        }
+
+        .hobbies {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .hobby-card {
+            background: var(--background-card);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .hobby-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .hobby-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .hobby-desc {
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--background-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--background-card);
+            opacity: 0.8;
+        }
+
+        .light-mode {
+            --primary-color: #8a2be2;
+            --text-color: #000000;
+            --background-dark: #b6b6b6;
+            --background-card: #a1a1a1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .hobby-card {
+                padding: 1rem;
+            }
+            .hobbies {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switch" id="themeSwitch">
+        <i class="fas fa-sun"></i>
+    </div>
+
+    <div class="particles" id="particles"></div>
+
+    <header>
+        <div class="profile">
+            <div class="profile-pic float">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1 class="name">Islam</h1>
+            <p class="tagline">Programmeur, biker</p>
+            <div class="social-links">
+                <a href="https://instagram.com/1sl2.m" class="social-link" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://youtube.com/@1sl2.m" class="social-link" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2 class="section-title">About Me</h2>
+            <div class="card">
+                <p>Salam! Ana Islam, Kanbghi L programming,L game development o Les moteurs. Kay3jebni Nssayeb Les Websites O Les Jeux.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"> Skils Dyali</h2>
+            <div class="card">
+                <div class="skills">
+                    <div class="skill">
+                        <i class="fas fa-code"></i>
+                        <span>Programming</span>
+                    </div>
+                    <div class="skill">
+                        <i class="fas fa-motorcycle"></i>
+                        <span>Motorbiking</span>
+                    </div>
+                    <div class="skill">
+                        <i class="fas fa-bicycle"></i>
+                        <span>Biking</span>
+                    </div>
+                    <div class="skill">
+                        <i class="fas fa-gamepad"></i>
+                        <span>Game Development</span>
+                    </div>
+                    <div class="skill">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Web Development</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Lhiwayat Dyali</h2>
+            <div class="hobbies">
+                <div class="hobby-card">
+                    <i class="fas fa-gamepad hobby-icon"></i>
+                    <h3 class="hobby-title">Gaming</h3>
+                    <p class="hobby-desc">Kay3jebni Nel3lab Les Videogames O Nt Inspira mnhom o nsyayeb les jeux dyali.</p>
+                </div>
+                <div class="hobby-card">
+                    <i class="fas fa-code hobby-icon"></i>
+                    <h3 class="hobby-title">Game Development</h3>
+                    <p class="hobby-desc">Lgame Development Bnisba Liya Hiya Wa7ed Lmoyen Li Kat7awel Biha Lhkayal Ila L7a9i9a.</p>
+                </div>
+                <div class="hobby-card">
+                    <i class="fas fa-laptop-code hobby-icon"></i>
+                    <h3 class="hobby-title">Web Development</h3>
+                    <p class="hobby-desc">Designing and building websites with modern technologies and creative interfaces.</p>
+                </div>
+                <div class="hobby-card">
+                    <i class="fas fa-motorcycle hobby-icon"></i>
+                    <h3 class="hobby-title">Motorbiking</h3>
+                    <p class="hobby-desc">Kanmout 3la Les Motorbikes !</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Twassel M3aya</h2>
+            <div class="card">
+                <p>Nta 7or La Bghiti Tchouf L content Li kan7ot fi youtube O Instagram:</p>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="https://instagram.com/1sl2.m" class="social-link" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://youtube.com/c/1SL2.M" class="social-link" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Islam. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme switching
+        const themeSwitch = document.getElementById('themeSwitch');
+        const themeIcon = themeSwitch.querySelector('i');
+        
+        themeSwitch.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.className = 'fas fa-moon';
+            } else {
+                themeIcon.className = 'fas fa-sun';
+            }
+        });
+
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 50;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Random position, size and animation
+            const size = Math.random() * 5 + 1;
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const animDuration = Math.random() * 60 + 20;
+            const animDelay = Math.random() * 5;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}%`;
+            particle.style.top = `${posY}%`;
+            particle.style.animation = `float ${animDuration}s ease-in-out ${animDelay}s infinite`;
+            
+            particlesContainer.appendChild(particle);
+        }
+
+        // Add some interactivity - items follow cursor slightly
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            const cards = document.querySelectorAll('.card, .hobby-card, .social-link');
+            cards.forEach(card => {
+                const moveX = (mouseX - 0.5) * 10;
+                const moveY = (mouseY - 0.5) * 10;
+                card.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
